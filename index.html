@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sooraj Portfolio</title>
+  <link rel="shortcut icon" href="./assets/images/my-avatar.png" type="image/x-icon">
+  <link rel="stylesheet" href="./assets/css/style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    /* Existing Certificate Modal Styles */
+    [data-certificate-modal-container].active {
+      display: flex !important;
+    }
+    [data-certificate-modal-container] {
+      display: none;
+      position: fixed;
+      z-index: 9999;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.9);
+      justify-content: center;
+      align-items: center;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    [data-certificate-modal-container] .overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: transparent;
+      cursor: pointer;
+    }
+    .certificates-modal {
+      position: relative;
+      background: transparent;
+      border-radius: 0;
+      max-width: 100vw;
+      max-height: 100vh;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+    .certificates-modal .modal-close-btn {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      background: rgba(255, 255, 255, 0.2);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      font-size: 24px;
+      cursor: pointer;
+      color: #fff;
+      z-index: 10000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s ease;
+    }
+    .certificates-modal .modal-close-btn:hover {
+      background: rgba(255, 255, 255, 0.3);
+      color: #000;
+      transform: scale(1.1);
+    }
+    .modal-img-wrapper {
+      position: relative;
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: #000;
+      width: 100%;
+      height: 100%;
+      padding: 0;
+    }
+    .modal-certificate-box {
+      text-align: center;
+      padding: 0;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .modal-certificate-box img {
+      max-width: 100%;
+      max-height: 100%;
+      width: auto;
+      height: auto;
+      object-fit: contain;
+      box-shadow: none;
+      border-radius: 0;
+      cursor: zoom-in;
+      transition: transform 0.3s ease;
+    }
+    .modal-certificate-box img:hover {
+      transform: scale(1.02);
+    }
+    [data-certificate-text] {
+      display: none;
+    }
+
+    /* New Project Modal Styles */
+    [data-project-modal-container].active {
+      display: flex !important;
+    }
+    [data-project-modal-container] {
+      display: none;
+      position: fixed;
+      z-index: 9999;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.9);
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+      box-sizing: border-box;
+    }
+    [data-project-modal-container] .overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: transparent;
+      cursor: pointer;
+    }
+    .projects-modal {
+      position: relative;
+      background: #fff;
+      border-radius: 8px;
+      max-width: 90vw;
+      max-height: 90vh;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+    .projects-modal .modal-close-btn {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      background: rgba(255, 255, 255, 0.2);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      font-size: 24px;
+      cursor: pointer;
+      color: #fff;
+      z-index: 10000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s ease;
+    }
+    .projects-modal .modal-close-btn:hover {
+      background: rgba(255, 255, 255, 0.3);
+      color: #000;
+      transform: scale(1.1);
+    }
+    .modal-project-box {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      height: 100%;
+      padding: 0;
+    }
+    .modal-project-box iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+      border-radius: 8px;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <aside class="sidebar" data-sidebar>
+      <div class="sidebar-info">
+        <figure class="avatar-box">
+          <img src="./assets/images/my-avatar.png" alt="Sooraj M S">
+        </figure>
+        <div class="info-content">
+          <h1 class="name" title="Sooraj M S">Sooraj M S</h1>
+          <p class="title">Web developer</p>
+        </div>
+        <button class="info_more-btn" data-sidebar-btn>
+          <span>Show Contacts</span>
+          <ion-icon name="chevron-down"></ion-icon>
+        </button>
+      </div>
+      <div class="sidebar-info_more">
+        <div class="separator"></div>
+        <ul class="contacts-list">
+          <li class="contact-item">
+            <div class="icon-box">
+              <ion-icon name="mail-outline"></ion-icon>
+            </div>
+            <div class="contact-info">
+              <p class="contact-title">Email</p>
+              <a href="mailto:sooraj@example.com" class="contact-link">soorajmsstudio333@gmail.com</a>
+            </div>
+          </li>
+          <li class="contact-item">
+            <div class="icon-box">
+              <ion-icon name="phone-portrait-outline"></ion-icon>
+            </div>
+            <div class="contact-info">
+              <p class="contact-title">Phone</p>
+              <a href="tel:+12133522795" class="contact-link">7012882210</a>
+            </div>
+          </li>
+          <li class="contact-item">
+            <div class="icon-box">
+              <ion-icon name="calendar-outline"></ion-icon>
+            </div>
+            <div class="contact-info">
+              <p class="contact-title">Birthday</p>
+              <time datetime="1982-06-23">November 26, 2003</time>
+            </div>
+          </li>
+          <li class="contact-item">
+            <div class="icon-box">
+              <ion-icon name="location-outline"></ion-icon>
+            </div>
+            <div class="contact-info">
+              <p class="contact-title">Location</p>
+              <address>Thrissur, Kerala, India</address>
+            </div>
+          </li>
+        </ul>
+        <div class="separator"></div>
+        <ul class="social-list">
+          <li class="social-item">
+            <a href="#" class="social-link">
+              <ion-icon name="logo-facebook"></ion-icon>
+            </a>
+          </li>
+          <li class="social-item">
+            <a href="#" class="social-link">
+              <ion-icon name="logo-twitter"></ion-icon>
+            </a>
+          </li>
+          <li class="social-item">
+            <a href="#" class="social-link">
+              <ion-icon name="logo-instagram"></ion-icon>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </aside>
+    <div class="main-content">
+      <nav class="navbar">
+        <ul class="navbar-list">
+          <li class="navbar-item">
+            <button class="navbar-link active" data-nav-link>About</button>
+          </li>
+          <li class="navbar-item">
+            <button class="navbar-link" data-nav-link>Certificates</button>
+          </li>
+          <li class="navbar-item">
+            <button class="navbar-link" data-nav-link>Projects</button>
+          </li>
+        </ul>
+      </nav>
+      <article class="about active" data-page="about">
+        <header>
+          <h2 class="h2 article-title">About me</h2>
+        </header>
+        <section class="about-text">
+          <p>
+            I'm Creative Director and UI/UX Designer from Sydney, Australia, working in Participation and print media.
+            I enjoy turning complex problems into simple, beautiful and intuitive designs.
+          </p>
+          <p>
+            My job is to build your website so that it is functional and user-friendly but at the same time attractive.
+            Moreover, I add personal touch to your product and make sure that is eye-catching and easy to use. My aim is to bring across your message and identity in the most creative way. I created Internship for many famous brand companies.
+          </p>
+        </section>
+        <section class="timeline">
+          <div class="title-wrapper">
+            <div class="icon-box">
+              <ion-icon name="book-outline"></ion-icon>
+            </div>
+            <h3 class="h3">Education</h3>
+          </div>
+          <ol class="timeline-list">
+            <li class="timeline-item">
+              <h4 class="h4 timeline-item-title">St. Thomas College (Autonomous) Thrissur</h4>
+              <span>2024 — 2026</span>
+              <p class="timeline-text">
+                Course: MSc Computer Science 
+                Status: Pursuing
+              </p>
+            </li>
+            <li class="timeline-item">
+              <h4 class="h4 timeline-item-title">St. Thomas College (Autonomous) Thrissur</h4>
+              <span>2021 — 2024</span>
+              <p class="timeline-text">
+                Course: BSc Computer Science
+                Status: Completed
+              </p>
+            </li>
+            <li class="timeline-item">
+              <h4 class="h4 timeline-item-title">St. Thomas College HSS Thrissur</h4>
+              <span>2019 — 2021</span>
+              <p class="timeline-text">
+                Course: Computer Science
+                Status: Completed
+              </p>
+            </li>
+            <li class="timeline-item">
+              <h4 class="h4 timeline-item-title">St. Thomas HSS Thiroor</h4>
+              <span>2007 — 2019</span>
+              <p class="timeline-text">
+                Status: Completed
+              </p>
+            </li>
+          </ol>
+        </section>
+        <section class="skill">
+          <h3 class="h3 skills-title">My skills</h3>
+          <ul class="skills-list content-card">
+            <li class="skills-item">
+              <div class="title-wrapper">
+                <h5 class="h5">Internship</h5>
+                <data value="80">80%</data>
+              </div>
+              <div class="skill-progress-bg">
+                <div class="skill-progress-fill" style="width: 80%;"></div>
+              </div>
+            </li>
+            <li class="skills-item">
+              <div class="title-wrapper">
+                <h5 class="h5">Programming</h5>
+                <data value="70">70%</data>
+              </div>
+              <div class="skill-progress-bg">
+                <div class="skill-progress-fill" style="width: 70%;"></div>
+              </div>
+            </li>
+            <li class="skills-item">
+              <div class="title-wrapper">
+                <h5 class="h5">Video Editing</h5>
+                <data value="90">90%</data>
+              </div>
+              <div class="skill-progress-bg">
+                <div class="skill-progress-fill" style="width: 90%;"></div>
+              </div>
+            </li>
+            <li class="skills-item">
+              <div class="title-wrapper">
+                <h5 class="h5">Problem Solving</h5>
+                <data value="50">50%</data>
+              </div>
+              <div class="skill-progress-bg">
+                <div class="skill-progress-fill" style="width: 50%;"></div>
+              </div>
+            </li>
+          </ul>
+        </section>
+      </article>
+      <article class="portfolio" data-page="certificates">
+        <header>
+          <h2 class="h2 article-title">Certificates</h2>
+        </header>
+        <section class="projects">
+          <ul class="filter-list">
+            <li class="filter-item">
+              <button class="active" data-filter-btn>All</button>
+            </li>
+            <li class="filter-item">
+              <button data-filter-btn>Internship</button>
+            </li>
+            <li class="filter-item">
+              <button data-filter-btn>Achievements</button>
+            </li>
+            <li class="filter-item">
+              <button data-filter-btn>Participation</button>
+            </li>
+          </ul>
+          <div class="filter-select-box">
+            <button class="filter-select" data-select>
+              <div class="select-value" data-select-value>Select category</div>
+              <div class="select-icon">
+                <ion-icon name="chevron-down"></ion-icon>
+              </div>
+            </button>
+            <ul class="select-list">
+              <li class="select-item">
+                <button data-select-item>All</button>
+              </li>
+              <li class="select-item">
+                <button data-select-item>Internship</button>
+              </li>
+              <li class="select-item">
+                <button data-select-item>Achievements</button>
+              </li>
+              <li class="select-item">
+                <button data-select-item>Participation</button>
+              </li>
+            </ul>
+          </div>
+          <ul class="project-list">
+            <li class="project-item active" data-filter-item data-category="participation">
+              <a href="#" data-certificate-item>
+                <figure class="project-img">
+                  <div class="project-item-icon-box">
+                    <ion-icon name="eye-outline"></ion-icon>
+                  </div>
+                  <img src="./assets/images/Sooraj M S.png" alt="Relay Coding" loading="lazy" data-certificate-img>
+                </figure>
+                <h3 class="project-title" data-certificate-title>Relay Coding</h3>
+                <p class="project-category">Coding Fest</p>
+                <div class="certificate-text" data-certificate-text style="display: none;">
+                  <p>
+                    Participated in Relay Coding Event organized by [Organizer Name]. This event involved team-based debugging and coding relay challenges. Date: [e.g., February 2024].
+                  </p>
+                </div>
+              </a>
+            </li>
+            <li class="project-item active" data-filter-item data-category="participation">
+              <a href="#" data-certificate-item>
+                <figure class="project-img">
+                  <div class="project-item-icon-box">
+                    <ion-icon name="eye-outline"></ion-icon>
+                  </div>
+                  <img src="./assets/images/ImagineeringSaga_participation.pdf.png" alt="Imagineering Saga" loading="lazy" data-certificate-img>
+                </figure>
+                <h3 class="project-title" data-certificate-title>Imagineering Saga</h3>
+                <p class="project-category">Coding Fest</p>
+                <div class="certificate-text" data-certificate-text style="display: none;">
+                  <p>
+                    Participated in Imagineering Saga Coding Fest organized by [Organizer Name]. This event involved competitive programming challenges. Date: [e.g., March 2024].
+                  </p>
+                </div>
+              </a>
+            </li>
+            <li class="project-item active" data-filter-item data-category="participation">
+              <a href="#" data-certificate-item>
+                <figure class="project-img">
+                  <div class="project-item-icon-box">
+                    <ion-icon name="eye-outline"></ion-icon>
+                  </div>
+                  <img src="./assets/images/CodeCascade_participation.pdf.png" alt="CodeCascade" loading="lazy" data-certificate-img>
+                </figure>
+                <h3 class="project-title" data-certificate-title>CodeCascade</h3>
+                <p class="project-category">Coding Fest</p>
+                <div class="certificate-text" data-certificate-text style="display: none;">
+                  <p>
+                    Participated in CodeCascade Coding Fest organized by [Organizer Name]. This event involved competitive programming challenges. Date: [e.g., April 2024].
+                  </p>
+                </div>
+              </a>
+            </li>
+            <li class="project-item active" data-filter-item data-category="internship">
+              <a href="#" data-certificate-item>
+                <figure class="project-img">
+                  <div class="project-item-icon-box">
+                    <ion-icon name="eye-outline"></ion-icon>
+                  </div>
+                  <img src="./assets/images/Internship_ai_ml_internsvally.pdf.png" alt="AI/ML Internship" loading="lazy" data-certificate-img>
+                </figure>
+                <h3 class="project-title" data-certificate-title>AI/ML</h3>
+                <p class="project-category">Internsvally</p>
+                <div class="certificate-text" data-certificate-text style="display: none;">
+                  <p>
+                    Internship completion certificate from Internsvally. Gained experience in AI/ML development projects. Duration: [e.g., 3 months, 2023].
+                  </p>
+                </div>
+              </a>
+            </li>
+            <li class="project-item active" data-filter-item data-category="internship">
+              <a href="#" data-certificate-item>
+                <figure class="project-img">
+                  <div class="project-item-icon-box">
+                    <ion-icon name="eye-outline"></ion-icon>
+                  </div>
+                  <img src="./assets/images/Coursera1.pdf.png" alt="Deep Learning with PyTorch" loading="lazy" data-certificate-img>
+                </figure>
+                <h3 class="project-title" data-certificate-title>DL with PyTorch</h3>
+                <p class="project-category">Course</p>
+                <div class="certificate-text" data-certificate-text style="display: none;">
+                  <p>
+                    Completed a course on Deep Learning with PyTorch from Coursera. Learned advanced techniques in deep learning and neural networks. Date: [e.g., June 2024].
+                  </p>
+                </div>
+              </a>
+            </li>
+            <li class="project-item active" data-filter-item data-category="achievements">
+              <a href="#" data-certificate-item>
+                <figure class="project-img">
+                  <div class="project-item-icon-box">
+                    <ion-icon name="eye-outline"></ion-icon>
+                  </div>
+                  <img src="./assets/images/project-8.jpg" alt="App Designing" loading="lazy" data-certificate-img>
+                </figure>
+                <h3 class="project-title" data-certificate-title>App Designing</h3>
+                <p class="project-category">First</p>
+                <div class="certificate-text" data-certificate-text style="display: none;">
+                  <p>
+                    Achievement certificate for securing first place in an App Designing competition. Developed an innovative mobile application. Date: [e.g., May 2024].
+                  </p>
+                </div>
+              </a>
+            </li>
+          </ul>
+        </section>
+        <div class="modal-container" data-certificate-modal-container>
+          <div class="overlay" data-certificate-overlay></div>
+          <section class="certificates-modal">
+            <button class="modal-close-btn" data-certificate-modal-close-btn>
+              <ion-icon name="close-outline"></ion-icon>
+            </button>
+            <div class="modal-img-wrapper">
+              <figure class="modal-certificate-box">
+                <img src="" alt="" data-certificate-modal-img>
+              </figure>
+            </div>
+          </section>
+        </div>
+      </article>
+      <article class="blog" data-page="projects">
+        <header>
+          <h2 class="h2 article-title">Projects</h2>
+        </header>
+        <section class="blog-posts">
+          <ul class="blog-posts-list">
+            <li class="blog-post-item" data-project-item>
+              <a href="https://6861eff65e5b16fd770b2d80--effortless-starburst-a60127.netlify.app/" data-project-link>
+                <figure class="blog-banner-box">
+                  <div class="project-item-icon-box">
+                    <ion-icon name="eye-outline"></ion-icon>
+                  </div>
+                  <img src="./assets/images/project-1.jpg" alt="School Zone Alert System" loading="lazy">
+                </figure>
+                <div class="blog-content">
+                  <div class="blog-meta">
+                    <p class="blog-category">ArcGIS</p>
+                    <span class="dot"></span>
+                    <p class="blog-category">QGIS</p>
+                  </div>
+                  <h3 class="h3 blog-item-title">School Zone Alert System</h3>
+                  <p class="blog-text">
+                    An alert will be triggered when we arrive at or enter a school, hospital, or no-horn zone.
+                  </p>
+                </div>
+              </a>
+            </li>
+          </ul>
+        </section>
+        <div class="modal-container" data-project-modal-container>
+          <div class="overlay" data-project-overlay></div>
+          <section class="projects-modal">
+            <button class="modal-close-btn" data-project-modal-close-btn>
+              <ion-icon name="close-outline"></ion-icon>
+            </button>
+            <div class="modal-project-box">
+              <iframe src="" data-project-modal-iframe></iframe>
+            </div>
+          </section>
+        </div>
+      </article>
+    </div>
+  </main>
+  <script src="./assets/js/script.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Certificate Modal Functionality
+      const certificateItems = document.querySelectorAll("[data-certificate-item]");
+      const certificateModalContainer = document.querySelector("[data-certificate-modal-container]");
+      const certificateOverlay = document.querySelector("[data-certificate-overlay]");
+      const certificateModalCloseBtn = document.querySelector("[data-certificate-modal-close-btn]");
+      const certificateModalImg = document.querySelector("[data-certificate-modal-img]");
+
+      const openCertificateModal = (certificateItem) => {
+        const img = certificateItem.querySelector("[data-certificate-img]");
+        certificateModalImg.src = img.src;
+        certificateModalImg.alt = img.alt;
+        certificateModalContainer.classList.add("active");
+        document.body.style.overflow = 'hidden';
+      };
+
+      const closeCertificateModal = () => {
+        certificateModalContainer.classList.remove("active");
+        document.body.style.overflow = '';
+      };
+
+      certificateItems.forEach((item) => {
+        item.addEventListener("click", (e) => {
+          e.preventDefault();
+          openCertificateModal(item);
+        });
+      });
+
+      [certificateOverlay, certificateModalCloseBtn].forEach((btn) => {
+        btn.addEventListener("click", closeCertificateModal);
+      });
+
+      // Project Modal Functionality
+      const projectItems = document.querySelectorAll("[data-project-item]");
+      const projectModalContainer = document.querySelector("[data-project-modal-container]");
+      const projectOverlay = document.querySelector("[data-project-overlay]");
+      const projectModalCloseBtn = document.querySelector("[data-project-modal-close-btn]");
+      const projectModalIframe = document.querySelector("[data-project-modal-iframe]");
+
+      const openProjectModal = (projectItem) => {
+        const link = projectItem.querySelector("[data-project-link]").getAttribute("href");
+        projectModalIframe.src = link;
+        projectModalContainer.classList.add("active");
+        document.body.style.overflow = 'hidden';
+      };
+
+      const closeProjectModal = () => {
+        projectModalContainer.classList.remove("active");
+        projectModalIframe.src = ''; // Clear iframe src to stop loading
+        document.body.style.overflow = '';
+      };
+
+      projectItems.forEach((item) => {
+        item.addEventListener("click", (e) => {
+          e.preventDefault();
+          openProjectModal(item);
+        });
+      });
+
+      [projectOverlay, projectModalCloseBtn].forEach((btn) => {
+        btn.addEventListener("click", closeProjectModal);
+      });
+
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+          if (certificateModalContainer.classList.contains('active')) {
+            closeCertificateModal();
+          }
+          if (projectModalContainer.classList.contains('active')) {
+            closeProjectModal();
+          }
+        }
+      });
+    });
+  </script>
+  <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+</body>
+</html>
